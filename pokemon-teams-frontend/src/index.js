@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:3000"
 const TRAINERS_URL = `${BASE_URL}/trainers`
 const POKEMONS_URL = `${BASE_URL}/pokemons`
-let stuff;
+let pokemons;
 
 function getTrainers() {
     fetch(TRAINERS_URL, {
@@ -13,8 +13,8 @@ function getTrainers() {
         })
         .then(response => response.json())
         .then(data => {
-            // renderTrainers(data);
-            console.log(data);
+            renderTrainers(data);
+            // console.log(data);
         })
         .catch((error) => {
             console.error('Error:', error)
@@ -39,21 +39,25 @@ function getTrainers() {
 // }
 
 function renderTrainers(data) {
-    for (el of data["data"]) {
+    for (el of data) {
         document.querySelector("main").innerHTML += `
             <div class="card">
-            <p>${el.attributes.name}</p>
+            <p>${el.name}</p>
             <button data-trainer-id="${el.id}">Add Pokemon</button>
         // add pokemons
-             
+             <ul class="pokeList">
+                ${el.pokemons.map(e=> `<li>${e.species}(${e.nickname})</li>`).join('')}
+             </ul>
             </div>
         `
     }
 }
 
 
-// function renderPokemons(data) {
-//     for (el of data["data"]) {
-//         console.log(el.relationships.trainer.data.id)
-//     }
-// }
+function renderPokemons(pokes) {
+    pokes.forEach(e => {
+        document.querySelector(".pokeList").innerHTML += `
+            ${e.nickname}
+        `
+    })
+}
