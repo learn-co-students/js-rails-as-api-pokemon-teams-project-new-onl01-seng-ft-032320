@@ -6,7 +6,7 @@ class TrainersController < ApplicationController
   # }
     # render json: TrainerSerializer.new(trainers, options).serializable_hash
     render json: trainers.to_json(:include => {
-      :pokemons => {:only => [:nickname, :species], :except => [:created_at, :updated_at]}
+      :pokemons => {:only => [:id,:nickname, :species, :trainer_id], :except => [:created_at, :updated_at]}
     }, except: [:created_at, :updated_at])
   end
 

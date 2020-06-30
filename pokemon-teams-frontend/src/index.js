@@ -3,6 +3,10 @@ const TRAINERS_URL = `${BASE_URL}/trainers`
 const POKEMONS_URL = `${BASE_URL}/pokemons`
 let pokemons;
 
+document.addEventListener("DOMContentLoaded", () => {
+    getTrainers();
+})
+
 function getTrainers() {
     fetch(TRAINERS_URL, {
             method: "GET",
@@ -46,7 +50,7 @@ function renderTrainers(data) {
             <button data-trainer-id="${el.id}">Add Pokemon</button>
         // add pokemons
              <ul class="pokeList">
-                ${el.pokemons.map(e=> `<li>${e.species}(${e.nickname})</li>`).join('')}
+                ${el.pokemons.map(e=> `<li>${e.species}(${e.nickname})<button class="release" data-pokemon-id="${e.id}">Release</button></li>`).join('')}
              </ul>
             </div>
         `
